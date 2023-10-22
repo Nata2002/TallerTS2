@@ -17,8 +17,21 @@ function renderSeriesInTable(series: Serie[]): void {
                                <td class="text-primary">${serie.name}</td>
                                <td>${serie.channel}</td>
                                <td>${serie.seasons}</td>`;
+        trElement.addEventListener("click", () => renderCard(serie));
+        trElement.classList.add("serieClick");
         seriesTbody.appendChild(trElement);
     });
+}
+
+function renderCard(serie: Serie): void {
+    let cardSerie: HTMLElement = document.getElementById('cardSerie')!;
+    cardSerie.style.visibility = "visible";
+    cardSerie.innerHTML = ` <img src="${serie.image}" class="card-img-top" height="400px" width="150px>>
+                           <div class="card-body">
+                               <h2 class="card-title">${serie.name}</h2>
+                               <p class="card-text">${serie.description}</p>
+                               <a href=${serie.link}>${serie.link}</a>
+                           </div>`;
 }
 
 function getPromedioSeries(series: Serie[]): number {
@@ -27,7 +40,4 @@ function getPromedioSeries(series: Serie[]): number {
     series.forEach((serie) => suma = suma + serie.seasons);
     promedio = suma / series.length;
     return promedio;
-  }
-  
-
-  
+}
